@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Especial 💜</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  background: radial-gradient(circle, #d6c2f0 10%, #8b5fbf 90%);
+  color: white;
+}
+
+/* Margaridas animadas */
+.daisy {
+  position: absolute;
+  font-size: 40px;
+  animation: float 20s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(110vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-120px) rotate(360deg);
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: rgba(0,0,0,0.35);
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  width: 90%;
+  max-width: 520px;
+  animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+}
+
+.buttons {
+  margin-top: 30px;
+  height: 140px;
+  position: relative;
+}
+
+button {
+  padding: 14px 34px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#yes {
+  background: #6a0dad;
+  color: white;
+  box-shadow: 0 0 15px rgba(200,150,255,0.8);
+}
+
+#no {
+  background: #333;
+  color: white;
+  position: absolute;
+}
+
+#final {
+  display: none;
+  animation: fadeIn 1.2s ease;
+}
+
+#final img {
+  width: 100%;
+  border-radius: 18px;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Música (iPhone safe) -->
+<audio id="music" loop preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c9c1fef5a.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Margaridas -->
+<script>
+for (let i = 0; i < 18; i++) {
+  const flower = document.createElement("div");
+  flower.className = "daisy";
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.animationDuration = 15 + Math.random() * 15 + "s";
+  flower.innerText = "🌸";
+  document.body.appendChild(flower);
+}
+</script>
+
+<div class="container">
+  <div class="card">
+    <h1>💜 Camilly 💜</h1>
+    <p>Quer ir ao cinema comigo? 🎬🍿</p>
+    <p>Prometo um momento especial, risadas e companhia boa ✨</p>
+
+    <div class="buttons">
+      <button id="yes">Sim 💜</button>
+      <button id="no">Não 😈</button>
+    </div>
+
+    <div id="final">
+      <h2>Então é um encontro 😍</h2>
+      <p>
+        🎥 <strong>Filme:</strong> A Empregada<br>
+        📅 <strong>Data:</strong> 10/02<br>
+        ⏰ <strong>Horário:</strong> 18h
+      </p>
+
+      <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4" alt="Cinema">
+    </div>
+  </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const finalDiv = document.getElementById("final");
+const buttons = document.querySelector(".buttons");
+const music = document.getElementById("music");
+
+function moveNoButton() {
+  const maxX = buttons.clientWidth - noBtn.clientWidth;
+  const maxY = buttons.clientHeight - noBtn.clientHeight;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+  noBtn.style.transform =
+    `scale(${0.6 + Math.random() * 0.7}) rotate(${Math.random()*360}deg)`;
+}
+
+// Desktop + Mobile
+noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
+
+function accept() {
+  buttons.style.display = "none";
+  finalDiv.style.display = "block";
+  music.currentTime = 0;
+  music.play().catch(()=>{});
+}
+
+yesBtn.addEventListener("click", accept);
+yesBtn.addEventListener("touchend", accept);
+</script>
+
+</body>
+</html>
